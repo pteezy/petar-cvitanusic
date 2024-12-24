@@ -20,13 +20,15 @@
         .circle {
             border: 6px dashed #f1e2a2; /* Pastel yellow dashed circle */
             border-radius: 50%;
-            width: 320px;
-            height: 320px;
+            width: 50vw; /* Relative width (25% of the viewport width) */
+            height: 50vw; /* Relative height (25% of the viewport width) */
+            max-width: 320px; /* Maximum width */
+            max-height: 320px; /* Maximum height */
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 0 auto;
-            padding: 60px; /* Adds spacing inside the circle */
+            padding: 30px; /* Adds spacing inside the circle */
         }
         h1 {
             font-size: 2.5em; /* Larger font for name */
@@ -36,6 +38,20 @@
             font-size: 1.2em; /* Slightly smaller font for caption */
             margin: 0;
             color: #555; /* Subtle gray for the caption */
+        }
+
+        /* Media Query for smaller screens */
+        @media (max-width: 600px) {
+            .circle {
+                width: 40vw; /* Adjust size for smaller screens */
+                height: 40vw;
+            }
+            h1 {
+                font-size: 2em; /* Adjust font size for small screens */
+            }
+            p {
+                font-size: 1em; /* Adjust caption size for small screens */
+            }
         }
     </style>
 </head>
