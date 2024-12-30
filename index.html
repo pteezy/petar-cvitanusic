@@ -1,90 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Petar Cvitanusic</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #829e7e; /* Pastel green background */
-            color: #333; /* Dark text for contrast */
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            overflow: hidden; /* Prevent scrolling if needed */
-        }
-        .circle {
-            position: relative;
-            width: 50vw; /* Relative width (50% of the viewport width) */
-            height: 50vw; /* Relative height (50% of the viewport width) */
-            max-width: 320px; /* Maximum width */
-            max-height: 320px; /* Maximum height */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto;
-            padding: 30px; /* Adds spacing inside the circle */
-        }
-        .circle::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 6px dashed #f1e2a2; /* Pastel yellow dashed circle */
-            border-radius: 50%;
-            animation: spin 20s linear infinite; /* Apply the spinning animation */
-        }
-        .content {
-            z-index: 1; /* Ensures text is above the circle */
-        }
-        h1 {
-            font-size: 2.5em; /* Larger font for name */
-            margin: 0;
-        }
-        p {
-            font-size: 1.2em; /* Slightly smaller font for caption */
-            margin: 0;
-            color: #555; /* Subtle gray for the caption */
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Petar Cvitanusic</title>
+  <script src="https://unpkg.com/css-doodle@0.29.1/css-doodle.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      height: 100vh;
+      background: #f1e2a2;
+      font-family: 'Arial', sans-serif;
+    }
 
-        /* Define the spinning animation */
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg); /* Start at 0 degrees */
-            }
-            100% {
-                transform: rotate(360deg); /* Rotate to 360 degrees */
-            }
-        }
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      background: #a3b19c; /* White square background */
+      color: #000000; /* Black text for readability */
+      padding: 20px 40px;
+      border-radius: 8px;
+      box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.3);
+      z-index: 10; /* Ensure it appears above css-doodle */
+    }
 
-        /* Media Query for smaller screens */
-        @media (max-width: 600px) {
-            .circle {
-                width: 40vw; /* Adjust size for smaller screens */
-                height: 40vw;
-            }
-            h1 {
-                font-size: 2em; /* Adjust font size for small screens */
-            }
-            p {
-                font-size: 1em; /* Adjust caption size for small screens */
-            }
-        }
-    </style>
+    .container h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .container p {
+      font-size: 1rem;
+      font-style: italic;
+      color: #666666; /* Subtle gray for secondary text */
+    }
+
+    css-doodle {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1; /* Background effect layer */
+    }
+  </style>
 </head>
 <body>
-    <div class="circle">
-        <div class="content">
-            <h1>Petar Cvitanusic</h1>
-            <p>Software Engineer</p>
-        </div>
-    </div>
+  <div class="container">
+    <h1>Petar Cvitanusic</h1>
+    <p>Possibly a future home of something cool...</p>
+  </div>
+
+  <css-doodle>
+    <style>
+      @grid: 100 / 60vmin;
+
+      background: #829e7e;
+      scale: 0;
+      opacity: 0;
+      animation: m 6s ease infinite;
+      
+      animation-delay: calc(
+        -1s/@I * @i * @sin(@i)
+      );
+
+      @keyframes m {
+        0%, 50%, 90% { scale: 1; opacity: 1 }
+        25%, 75%, 100% { scale: 0; opacity: 0 }
+      }
+    </style>
+  </css-doodle>
 </body>
 </html>
