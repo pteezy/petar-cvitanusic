@@ -1,79 +1,410 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Petar Cvitanusic</title>
-  <script src="https://unpkg.com/css-doodle@0.29.1/css-doodle.min.js"></script>
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      height: 100vh;
-      background: #f1e2a2;
-      font-family: 'Arial', sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petar Cvitanusic — Development Engineering Manager</title>
+    <meta name="description" content="Resume of Petar Cvitanusic, Development Engineering Manager.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/css-doodle@0.29.1/css-doodle.min.js"></script>
+    <style>
+        :root {
+            --bg: #f1e2a2;
+            --panel: #fbf5dc;
+            --sage: #a3b19c;
+            --sage-dark: #829e7e;
+            --ink: #1f2a1f;
+            --ink-soft: #55604f;
+            --accent: #d9534f;
+            --shadow: #1f2a1f;
+            --pixel: 'Press Start 2P', monospace;
+            --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+        }
 
-    .container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      background: #a3b19c; /* White square background */
-      color: #000000; /* Black text for readability */
-      padding: 20px 40px;
-      border-radius: 8px;
-      box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.3);
-      z-index: 10; /* Ensure it appears above css-doodle */
-    }
+        /* Pale yellow + sage is the default look; dark is opt-in via the toggle */
+        :root[data-theme="dark"] {
+            --bg: #14201a;
+            --panel: #1d2c24;
+            --sage: #2f4a3b;
+            --sage-dark: #3f6b52;
+            --ink: #e8f1d0;
+            --ink-soft: #a9b9a0;
+            --accent: #ffb454;
+            --shadow: #000;
+        }
 
-    .container h1 {
-      font-size: 2.5rem;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
-    .container p {
-      font-size: 1rem;
-      font-style: italic;
-      color: #666666; /* Subtle gray for secondary text */
-    }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--mono);
+            font-size: 15px;
+            line-height: 1.6;
+        }
 
-    css-doodle {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1; /* Background effect layer */
-    }
-  </style>
+        /* CRT scanline overlay */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 100;
+            background: repeating-linear-gradient(
+                to bottom, rgba(0,0,0,0.035) 0, rgba(0,0,0,0.035) 1px, transparent 1px, transparent 3px);
+        }
+
+        css-doodle {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        a { color: inherit; }
+
+        /* ---------- layout ---------- */
+        .wrap {
+            position: relative;
+            z-index: 1;
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 0 16px 80px;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 18px;
+            align-items: center;
+            padding: 12px 16px;
+            margin: 0 -16px 28px;
+            background: var(--sage);
+            border-bottom: 3px solid var(--shadow);
+            font-family: var(--pixel);
+            font-size: 10px;
+        }
+        nav a { text-decoration: none; padding: 4px 2px; }
+        nav a:hover, nav a:focus-visible { background: var(--ink); color: var(--panel); outline: none; }
+        nav .spacer { flex: 1; }
+        nav button {
+            font: inherit;
+            background: var(--panel);
+            color: var(--ink);
+            border: 2px solid var(--shadow);
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+
+        /* ---------- retro window ---------- */
+        .win {
+            background: var(--panel);
+            border: 3px solid var(--shadow);
+            box-shadow: 6px 6px 0 var(--shadow);
+            margin-bottom: 36px;
+        }
+        .win-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 10px;
+            background: var(--sage-dark);
+            border-bottom: 3px solid var(--shadow);
+            font-family: var(--pixel);
+            font-size: 10px;
+            color: #fff;
+            text-shadow: 1px 1px 0 var(--shadow);
+        }
+        .win-bar .dots { display: flex; gap: 5px; }
+        .win-bar .dots i {
+            width: 10px; height: 10px;
+            border: 2px solid var(--shadow);
+            background: var(--panel);
+            display: block;
+        }
+        .win-body { padding: 22px 24px; }
+
+        h2.win-title { margin: 0; font-size: inherit; font-weight: inherit; }
+
+        /* ---------- hero ---------- */
+        .hero { padding-top: 24px; }
+        .hero h1 {
+            font-family: var(--pixel);
+            font-size: clamp(20px, 5.2vw, 38px);
+            line-height: 1.3;
+            margin: 0 0 14px;
+        }
+        .prompt { color: var(--ink-soft); }
+        .cursor {
+            display: inline-block;
+            width: 0.6em; height: 1em;
+            background: var(--ink);
+            vertical-align: text-bottom;
+            animation: blink 1s steps(1) infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .tagline { font-size: 1.05rem; margin: 0 0 18px; }
+        .badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+        .badges li, .tag {
+            border: 2px solid var(--shadow);
+            background: var(--sage);
+            padding: 1px 9px;
+            font-size: 12.5px;
+            font-weight: 500;
+        }
+
+        /* ---------- experience ---------- */
+        .job { padding-bottom: 20px; margin-bottom: 20px; border-bottom: 2px dashed var(--ink-soft); }
+        .job:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+        .job-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; }
+        .job h3 { margin: 0; font-size: 1.05rem; }
+        .job .when { font-family: var(--pixel); font-size: 9px; color: var(--ink-soft); align-self: center; }
+        .job .where { margin: 0 0 8px; color: var(--ink-soft); }
+        .job ul { margin: 0; padding-left: 1.2em; }
+        .job li { margin-bottom: 4px; }
+        .job li::marker { content: "▸ "; color: var(--accent); }
+
+        .journey-label { font-family: var(--pixel); font-size: 9px; color: var(--ink-soft); margin: 14px 0 10px; }
+        .journey { list-style: none; margin: 0 0 18px; padding: 0 0 0 14px; border-left: 3px solid var(--shadow); }
+        .journey li { position: relative; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; margin: 0 0 10px; padding-left: 14px; }
+        .journey li::before {
+            content: ""; position: absolute; left: -22px; top: 6px;
+            width: 11px; height: 11px; background: var(--sage); border: 2px solid var(--shadow);
+        }
+        .journey li.now::before { background: var(--accent); }
+        .journey li span { font-family: var(--pixel); font-size: 9px; color: var(--ink-soft); align-self: center; }
+        .principles { margin: 0; padding-left: 1.2em; }
+        .principles li { margin-bottom: 10px; }
+        .principles li::marker { content: "▸ "; color: var(--accent); }
+
+        /* ---------- skills ---------- */
+        .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
+        .skills h3 { font-family: var(--pixel); font-size: 10px; margin: 0 0 10px; }
+        .meter { margin-bottom: 10px; }
+        .meter-label { display: flex; justify-content: space-between; font-size: 13px; }
+        .meter-bar {
+            height: 12px;
+            border: 2px solid var(--shadow);
+            background: var(--bg);
+            padding: 1px;
+        }
+        .meter-bar span {
+            display: block; height: 100%;
+            width: 0;
+            background: repeating-linear-gradient(90deg, var(--sage-dark) 0 6px, transparent 6px 8px);
+            transition: width 1s steps(12);
+        }
+        .in-view .meter-bar span { width: var(--v); }
+
+        /* ---------- contact ---------- */
+        .contact-list { list-style: none; margin: 0; padding: 0; }
+        .contact-list li { margin-bottom: 6px; }
+        .contact-list .k { display: inline-block; min-width: 9ch; color: var(--ink-soft); }
+        .contact-list a { text-underline-offset: 3px; }
+        .contact-list a:hover { background: var(--ink); color: var(--panel); }
+
+        footer { text-align: center; color: var(--ink-soft); font-size: 12px; margin-top: 10px; }
+
+        .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.4s, transform 0.4s steps(6); }
+        .in-view.reveal, .reveal.in-view { opacity: 1; transform: none; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .cursor { animation: none; }
+            .reveal { opacity: 1; transform: none; transition: none; }
+            .meter-bar span { transition: none; }
+            css-doodle { display: none; }
+        }
+
+        @media print {
+            css-doodle, nav, body::after { display: none; }
+            body { background: #fff; color: #000; }
+            .win { box-shadow: none; break-inside: avoid; }
+            .reveal { opacity: 1; transform: none; }
+            .meter-bar span { width: var(--v); }
+        }
+
+        @media (max-width: 520px) {
+            .win-body { padding: 16px; }
+            nav { font-size: 8px; }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Petar Cvitanusic</h1>
-    <p>Possibly a future home of something cool...</p>
-  </div>
-
-  <css-doodle>
+<css-doodle>
     <style>
-      @grid: 100 / 60vmin;
-
-      background: #829e7e;
-      scale: 0;
-      opacity: 0;
-      animation: m 6s ease infinite;
-      
-      animation-delay: calc(
-        -1s/@I * @i * @sin(@i)
-      );
-
-      @keyframes m {
-        0%, 50%, 90% { scale: 1; opacity: 1 }
-        25%, 75%, 100% { scale: 0; opacity: 0 }
-      }
+        @grid: 100 / 100vmax;
+        background: #829e7e;
+        scale: 0;
+        opacity: 0;
+        animation: m 6s ease infinite;
+        animation-delay: calc(-1s/@I * @i * @sin(@i));
+        @keyframes m {
+            0%, 50%, 90% { scale: 1; opacity: 1 }
+            25%, 75%, 100% { scale: 0; opacity: 0 }
+        }
     </style>
-  </css-doodle>
+</css-doodle>
+
+<div class="wrap">
+    <nav aria-label="Sections">
+        <a href="#about">ABOUT</a>
+        <a href="#experience">EXPERIENCE</a>
+        <a href="#ai">AI</a>
+        <a href="#skills">SKILLS</a>
+        <a href="#contact">CONTACT</a>
+        <span class="spacer"></span>
+        <button id="theme" type="button" aria-label="Toggle light and dark theme">◐</button>
+    </nav>
+
+    <header class="win hero" id="about">
+        <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span> ~/petar/about.txt</div>
+        <div class="win-body">
+            <p class="prompt">$ whoami</p>
+            <h1>Petar Cvitanusic<span class="cursor" aria-hidden="true"></span></h1>
+            <p class="tagline">
+                I'm a servant leader: I lead engineers with trust, empathy and openness. I like a tricky problem, but I like
+                solving it together even more.
+            </p>
+        </div>
+    </header>
+
+    <section class="win reveal" id="experience" aria-labelledby="exp-title">
+        <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><h2 class="win-title" id="exp-title">experience.log</h2></div>
+        <div class="win-body">
+            <p class="prompt">$ tail -f experience.log</p>
+            <article class="job">
+                <div class="job-head">
+                    <h3>Enverus · Calgary, AB</h3>
+                    <span class="when">2014 — PRESENT</span>
+                </div>
+                <p class="where">Over a decade with one company, through every change: ADP → Oildex → Enverus.</p>
+                <p class="journey-label">THE JOURNEY: JUNIOR DEV TO MANAGER</p>
+                <ol class="journey">
+                    <li><b>Associate Developer</b><span>2014</span></li>
+                    <li><b>Application Developer &amp; Scrum Master</b><span>2015</span></li>
+                    <li><b>Senior Developer &amp; Scrum Master</b><span>2018</span></li>
+                    <li><b>Development Lead</b><span>2019</span></li>
+                    <li class="now"><b>Development Engineering Manager</b><span>2024</span></li>
+                </ol>
+                <ul>
+                    <li>Lead a team of engineers across a legacy Java monolith and a modern Kubernetes microservice stack.</li>
+                    <li>Get to know the people I work with and build strong relationships, because that's where great work starts. I spent a year in Brno, Czechia, working side by side with our developers there.</li>
+                    <li>Grow people by giving them ownership, context and room to stretch, and clear the blockers in their way.</li>
+                    <li>Keep work and decisions visible: open about priorities, trade-offs and incidents.</li>
+                    <li>Champion AI as a way to support and empower engineers, never to replace them.</li>
+                    <li>Technical work is still a core part of who I am: I dive into the hard production problems alongside the team, from logs to load balancers to root cause.</li>
+                </ul>
+            </article>
+            <p class="prompt" aria-hidden="true"><span class="cursor"></span></p>
+        </div>
+    </section>
+
+    <section class="win reveal" id="ai" aria-labelledby="ai-title">
+        <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><h2 class="win-title" id="ai-title">philosophy.md</h2></div>
+        <div class="win-body">
+            <p class="prompt">$ cat philosophy.md</p>
+            <ul class="principles">
+                <li><strong>Empower, don't replace.</strong> AI should make engineers more capable, not less necessary. The goal is to take the toil off people's plates so they can spend more time on the problems that need judgment, creativity and care.</li>
+                <li><strong>Engineers stay in the driver's seat.</strong> AI suggests, people decide and own the result.</li>
+                <li><strong>Be transparent about it.</strong> Talk openly about what works, what doesn't and where the risks are, including security and quality. When things go wrong, give people the chance to course correct.</li>
+                <li><strong>Lead with empathy and trust.</strong> I trust people to do great work, and I know everyone has something going on in their lives. Technology should make room for the human side of work, not squeeze it out.</li>
+                <li><strong>Embrace failure.</strong> Make it safe to experiment and to get it wrong, share what we learn, and help each other level up.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="win reveal" id="skills" aria-labelledby="skills-title">
+        <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><h2 class="win-title" id="skills-title">strengths.txt</h2></div>
+        <div class="win-body">
+            <p class="prompt">$ grep -E "servant|tech" strengths.txt</p>
+            <div class="skills">
+            <div>
+                <h3>SERVANT LEADERSHIP</h3>
+                <ul class="badges">
+                    <li>People first</li>
+                    <li>Trust</li>
+                    <li>Empathy</li>
+                    <li>Transparency</li>
+                    <li>Clear the path</li>
+                    <li>Agile / Scrum</li>
+                    <li>Coaching &amp; mentoring</li>
+                    <li>Psychological safety</li>
+                    <li>Collaboration</li>
+                    <li>Continuous improvement</li>
+                </ul>
+            </div>
+            <div>
+                <h3>TECH</h3>
+                <ul class="badges">
+                    <li>Java</li>
+                    <li>Kotlin</li>
+                    <li>Angular</li>
+                    <li>Oracle</li>
+                    <li>PostgreSQL</li>
+                    <li>DocumentDB</li>
+                    <li>Cloud infrastructure</li>
+                    <li>AWS</li>
+                    <li>Kubernetes</li>
+                    <li>Terraform</li>
+                    <li>Grafana / Loki</li>
+                </ul>
+            </div>
+            </div>
+        </div>
+    </section>
+
+        <section class="win reveal" id="contact" aria-labelledby="contact-title">
+        <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><h2 class="win-title" id="contact-title">contact.sh</h2></div>
+        <div class="win-body">
+            <ul class="contact-list">
+                <li><span class="k">email</span> <a href="mailto:petar@cvitanusic.com">petar@cvitanusic.com</a></li>
+                <li><span class="k">linkedin</span> <a href="https://www.linkedin.com/in/petar-cvitanusic-91a90479" target="_blank" rel="noopener noreferrer">linkedin.com/in/petar-cvitanusic-91a90479</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>© <span id="year">2026</span> Petar Cvitanusic · best viewed on anything with pixels</footer>
+</div>
+
+<script>
+    // Theme toggle (remembered per browser, page works without storage)
+    (function () {
+        var root = document.documentElement;
+        try { var saved = localStorage.getItem('theme'); if (saved) root.dataset.theme = saved; } catch (e) {}
+        document.getElementById('theme').addEventListener('click', function () {
+            root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+            try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+        });
+    })();
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Reveal windows and fill skill meters as they scroll into view
+    (function () {
+        var els = document.querySelectorAll('.reveal');
+        if (!('IntersectionObserver' in window)) {
+            els.forEach(function (el) { el.classList.add('in-view'); });
+            return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+            });
+        }, { threshold: 0.15 });
+        els.forEach(function (el) { io.observe(el); });
+    })();
+</script>
 </body>
 </html>
